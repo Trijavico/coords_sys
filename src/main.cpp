@@ -26,6 +26,10 @@ GLFWwindow* gWindow = NULL;
 bool gWireframe = false;
 const std::string texture1 = "textures/wooden_crate.jpg";
 
+glm::vec3 cubePos = glm::vec3(0.0f, 0.0f, -10.0f);
+float moveSpeed = 0.1f;
+
+
 // Function prototypes
 void glfw_onKey(GLFWwindow* window, int key, int scancode, int action, int mode);
 void glfw_onFramebufferSize(GLFWwindow* window, int width, int height);
@@ -96,9 +100,6 @@ int main()
 		-1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
 		 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
 	};
-
-	// Cube position
-	glm::vec3 cubePos = glm::vec3(0.0f, 0.0f, -10.0f);
 
 	// 2. Set up buffers on the GPU
 	GLuint vbo, vao;
@@ -262,6 +263,31 @@ void glfw_onKey(GLFWwindow* window, int key, int scancode, int action, int mode)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		else
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
+	if (action == GLFW_PRESS || action == GLFW_REPEAT)
+	{
+		switch (key) 
+		{
+			case GLFW_KEY_W:
+				cubePos.y += moveSpeed;
+				break;
+			case GLFW_KEY_S:
+				cubePos.y -= moveSpeed;
+				break;
+			case GLFW_KEY_A:
+				cubePos.y -= moveSpeed;
+				break;
+			case GLFW_KEY_D:
+				cubePos.y += moveSpeed;
+				break;
+			case GLFW_KEY_E:
+				cubePos.z += moveSpeed;
+				break;
+			case GLFW_KEY_Q:
+				cubePos.z -= moveSpeed;
+				break;
+		}
 	}
 }
 
